@@ -5,6 +5,16 @@ module adder4bit (
     output [3:0] sum
 );
 
+module full_adder (
+    input a, b, cin,
+    output cout, sum
+);
+
+    assign cout = (a & b) | (a & cin) | (b & cin);
+    assign sum = (a ^ b ^ cin);
+
+endmodule
+
     wire c0, c1, c2;
 
     full_adder fa0 (
@@ -38,15 +48,5 @@ module adder4bit (
         .sum(sum[3]),
         .cout(cout)
     );
-
-endmodule
-
-module full_adder (
-    input a, b, cin,
-    output cout, sum
-);
-
-    assign cout = (a & b) | (a & cin) | (b & cin);
-    assign sum = (a ^ b ^ cin);
 
 endmodule
