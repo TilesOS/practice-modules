@@ -7,7 +7,7 @@ module adder4bit (
 
     wire c0, c1, c2;
 
-    add fa0 (
+    full_adder fa0 (
         .a(a[0]),
         .b(b[0]),
         .cin(cin),
@@ -15,7 +15,7 @@ module adder4bit (
         .cout(c0)
     );
 
-    add fa1 (
+    full_adder fa1 (
         .a(a[1]),
         .b(b[1]),
         .cin(c0),
@@ -23,7 +23,7 @@ module adder4bit (
         .cout(c1)
     );
 
-    add fa2 (
+    full_adder fa2 (
         .a(a[2]),
         .b(b[2]),
         .cin(c1),
@@ -31,7 +31,7 @@ module adder4bit (
         .cout(c2)
     );
 
-    add fa3 (
+    full_adder fa3 (
         .a(a[3]),
         .b(b[3]),
         .cin(c2),
@@ -41,7 +41,7 @@ module adder4bit (
 
 endmodule
 
-module add (
+module full_adder (
     input a, b, cin,
     output cout, sum
 );
