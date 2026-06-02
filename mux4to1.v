@@ -1,4 +1,4 @@
-module mux (
+module mux4to1 (
     input s0,
     input s1,
     input d0,
