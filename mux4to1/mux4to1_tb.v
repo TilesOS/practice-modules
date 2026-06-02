@@ -5,31 +5,43 @@ module mux4to1_tb;
     reg d0, d1, d2, d3;
     wire out;
 
+    reg expected;
+    integer i;
+    integer errors = 0;
+
     mux4to1 uut (
         .s0(s0),
         .s1(s1),
         .d0(d0),
         .d1(d1),
         .d2(d2),
-        .d3(d3)
+        .d3(d3),
+        .out(out)
     );
 
     initial begin
-        d0 = 0;
-        d1 = 1;
-        d2 = 0;
-        d3 = 1;
+        for (i = 0; i < 64; i = i + 1) begin
+            {s1, s0, d3, d2, d1, d0} = i;
+            #10;
 
-        s1 = 0; s0 = 0; #10;
-        if (out != d0) $display("ERROR: 00 should output d0");
-        s1 = 0; s0 = 1; #10;
-        if (out != d1) $display("ERROR: 01 should output d1");
-        s1 = 1; s0 = 0; #10;
-        if (out != d2) $display("ERROR: 10 should output d2");
-        s1 = 1; s0 = 1; #10;
-        if (out != d3) $display("ERROR: 11 should output d3");
+            case ({s1, s0})
+                2'b00: expected = d0;
+                2'b01: expected = d1;
+                2'b10: expected = d2;
+                2'b11: expected = d3;
+                default: expected = 1'bx;
+            endcase
 
-        $display("Test completed.");
+            if (out != expected) begin
+                errors = errors + 1;
+                $display("ERROR: s1=%b s0=%b d3=%b d2=%b d1=%b d0=%b out=%b expected=%b",
+                         s1, s0, d3, d2, d1, d0, out, expected);
+            end
+        end
+
+        if (errors == 0) $display("PASSED: all 64 tests.");
+        else $display("FAILED: %0d/64 tests.", errors);
         $finish;
     end
+
 endmodule
