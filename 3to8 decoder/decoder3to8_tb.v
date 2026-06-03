@@ -41,9 +41,8 @@ module decoder3to8_tb;
 
             if ({d7, d6, d5, d4, d3, d2, d1, d0} !== expected) begin
                 errors = errors + 1;
-                $display({"ERROR: a2=%b a1=%b a0=%b d7=%b d6=%b d5=%b d4=%b d3=%b d2=%b d1=%b",
-                          "d0=%b expected=%b"},
-                a2, a1, a0, d7, d6, d5, d4, d3, d2, d1, d0, expected);
+                $display("ERROR: sel=%b out=%b expected=%b",
+                {a2, a1, a0}, {d7, d6, d5, d4, d3, d2, d1, d0}, expected);
             end
         end
 
