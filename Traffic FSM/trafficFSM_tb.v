@@ -66,6 +66,7 @@ module trafficFSM_tb;
         #1
         check_light(1, 0, 0);
 
+        repeat (2) @(posedge clk);
         #1
         reset = 0;
 
